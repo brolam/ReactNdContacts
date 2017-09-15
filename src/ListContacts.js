@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
@@ -8,21 +9,17 @@ class ListContacts extends Component {
         contacts: PropTypes.array.isRequired,
         onDeleteContact: PropTypes.func.isRequired
     }
-
     state = {
         query: ''
     }
-
     updateQuery = (query) => {
         this.setState({ query: query.trim() })
     }
-
     clearQuery = () => {
-        this.setState({ query: ''})
+        this.setState({ query: '' })
     }
-
     render() {
-        const {contacts, onDeleteContact} = this.props
+        const { contacts, onDeleteContact } = this.props
         const query = this.state.query
         let showingContacts = contacts.sort(sortBy('name'))
         if (query) {
@@ -38,7 +35,9 @@ class ListContacts extends Component {
                         type='text'
                         placeholder='Search contatcs'
                         values={query}
-                        onChange={(event) => this.updateQuery(event.target.value)} />
+                        onChange={(event) => this.updateQuery(event.target.value)}
+                    />
+                    <Link className="add-contact" to="/create">Add Contact</Link>
                 </div>
                 {showingContacts.length !== contacts.length && (
                     <div className='showing-contacts' >
